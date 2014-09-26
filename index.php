@@ -144,6 +144,13 @@ if (9 == $_GET['ac']) {
     putIniFile($Authz, getAuthzPath());
 }
 
+//删除路径
+if (10 == $_GET['ac']) {
+    $name = trim($_GET['name']);
+    unset($userList['users'][$name]);
+    putIniFile($userList, getPasswdPath());
+}
+
 
 
 $qx    = $Authz = getAuthz();
@@ -243,6 +250,7 @@ $userList = getPasswd();
             <tr>
                 <td style="border:1px solid #000000;"><?php echo $zh ?></td>
                 <td style="border:1px solid #000000;"><?php echo $pd ?></td>
+                <td style="border:1px solid #000000;">&nbsp;&nbsp;<a href="/?ac=10&name=<?php echo $zh ?>"><img width="16px" height="19px"   src="./X.png"></a></td>
             </tr>
         <?php endforeach; ?>
     <?php endforeach; ?>
