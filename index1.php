@@ -144,7 +144,7 @@ if (9 == $_GET['ac']) {
     putIniFile($Authz, getAuthzPath());
 }
 
-//删除路径
+//删除用户
 if (10 == $_GET['ac']) {
     $name = trim($_GET['name']);
     unset($userList['users'][$name]);

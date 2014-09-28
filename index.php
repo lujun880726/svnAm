@@ -1,196 +1,92 @@
 <?php
-
 include 'init.php';
-include "function.php";
 
 checkLogin();
 
+if (isset($_GET['pro']) && $_GET['pro']) {
+    $tmpPro = $_GET['pro'];
+    if (in_array($tmpPro, $projectList)) {
+        $_SESSION['pro'] = $tmpPro;
+    }
+}
 
-getDirFile(SVN_PATH);
+//初始操作前的用户列表
+$userList = getPasswd();
 
+//删除用户
+if (10 == $_GET['ac']) {
+    $name = trim($_GET['name']);
+    unset($userList['users'][$name]);
+    putIniFile($userList, getPasswdPath());
+    $err  = '用户删除成功';
+}
+
+//重置密码
+if (11 == $_GET['ac']) {
+    $name                     = trim($_GET['name']);
+    $userList['users'][$name] = 123456;
+    putIniFile($userList, getPasswdPath());
+    $err                      = '密码重置成功';
+}
+
+if (isPost()) {
+    //提交用户
+    $zh = trim($_POST['zh']);
+    $pd = trim($_POST['pd']);
+    if (!$zh || !$pd) {
+        $err = '账号或密码不能为空';
+    }
+    if (isset($userList['users'][$zh])) {
+        $err = '此账号已存在';
+    }
+    if (!$err) {
+        $userList['users'][$zh] = $pd;
+        putIniFile($userList, getPasswdPath());
+    }
+}
+
+//获取最新用户列表
+$userList = getPasswd();
+$top      = 1;
 ?>
-
-    <?php include 'header.php';?>
-    <?php include 'top.php';?>
-
-    <link href="/css/dashboard.css" rel="stylesheet">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-sm-3 col-md-2 sidebar">
-          <ul class="nav nav-sidebar">
-            <li class="active"><a href="#">Overview</a></li>
-            <li><a href="#">Reports</a></li>
-            <li><a href="#">Analytics</a></li>
-            <li><a href="#">Export</a></li>
-          </ul>
-          <ul class="nav nav-sidebar">
-            <li><a href="">Nav item</a></li>
-            <li><a href="">Nav item again</a></li>
-            <li><a href="">One more nav</a></li>
-            <li><a href="">Another nav item</a></li>
-            <li><a href="">More navigation</a></li>
-          </ul>
-          <ul class="nav nav-sidebar">
-            <li><a href="">Nav item again</a></li>
-            <li><a href="">One more nav</a></li>
-            <li><a href="">Another nav item</a></li>
-          </ul>
-        </div>
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h1 class="page-header">Dashboard</h1>
-
-          <div class="row placeholders">
-            <div class="col-xs-6 col-sm-3 placeholder">
-              <img data-src="holder.js/200x200/auto/sky" class="img-responsive" alt="Generic placeholder thumbnail">
-              <h4>Label</h4>
-              <span class="text-muted">Something else</span>
-            </div>
-            <div class="col-xs-6 col-sm-3 placeholder">
-              <img data-src="holder.js/200x200/auto/vine" class="img-responsive" alt="Generic placeholder thumbnail">
-              <h4>Label</h4>
-              <span class="text-muted">Something else</span>
-            </div>
-            <div class="col-xs-6 col-sm-3 placeholder">
-              <img data-src="holder.js/200x200/auto/sky" class="img-responsive" alt="Generic placeholder thumbnail">
-              <h4>Label</h4>
-              <span class="text-muted">Something else</span>
-            </div>
-            <div class="col-xs-6 col-sm-3 placeholder">
-              <img data-src="holder.js/200x200/auto/vine" class="img-responsive" alt="Generic placeholder thumbnail">
-              <h4>Label</h4>
-              <span class="text-muted">Something else</span>
-            </div>
-          </div>
-
-          <h2 class="sub-header">Section title</h2>
-          <div class="table-responsive">
-            <table class="table table-striped">
-              <thead>
+<?php include 'header.php'; ?>
+<link href="/css/dashboard.css" rel="stylesheet">
+<div class="container">
+    <!-- Main component for a primary marketing message or call to action -->
+    <div class="jumbotron">
+        <?php include 'top.php'; ?>
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <form role="form" method="post" name="form1" action="/index.php">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">添加用户</label>
+                    <input type="" class="form-control" id="exampleInputEmail1"  name="zh" placeholder="ACCOUT">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Password</label>
+                    <input type="password" class="form-control" id="exampleInputPassword1" name="pd" placeholder="Password">
+                </div>
+                <button type="submit" class="btn btn-default">Submit</button>
+            </form>
+            <table class="table table-bordered">
                 <tr>
-                  <th>#</th>
-                  <th>Header</th>
-                  <th>Header</th>
-                  <th>Header</th>
-                  <th>Header</th>
+                    <td> 账号 </td>
+                    <td> 操作 </td>
                 </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>1,001</td>
-                  <td>Lorem</td>
-                  <td>ipsum</td>
-                  <td>dolor</td>
-                  <td>sit</td>
-                </tr>
-                <tr>
-                  <td>1,002</td>
-                  <td>amet</td>
-                  <td>consectetur</td>
-                  <td>adipiscing</td>
-                  <td>elit</td>
-                </tr>
-                <tr>
-                  <td>1,003</td>
-                  <td>Integer</td>
-                  <td>nec</td>
-                  <td>odio</td>
-                  <td>Praesent</td>
-                </tr>
-                <tr>
-                  <td>1,003</td>
-                  <td>libero</td>
-                  <td>Sed</td>
-                  <td>cursus</td>
-                  <td>ante</td>
-                </tr>
-                <tr>
-                  <td>1,004</td>
-                  <td>dapibus</td>
-                  <td>diam</td>
-                  <td>Sed</td>
-                  <td>nisi</td>
-                </tr>
-                <tr>
-                  <td>1,005</td>
-                  <td>Nulla</td>
-                  <td>quis</td>
-                  <td>sem</td>
-                  <td>at</td>
-                </tr>
-                <tr>
-                  <td>1,006</td>
-                  <td>nibh</td>
-                  <td>elementum</td>
-                  <td>imperdiet</td>
-                  <td>Duis</td>
-                </tr>
-                <tr>
-                  <td>1,007</td>
-                  <td>sagittis</td>
-                  <td>ipsum</td>
-                  <td>Praesent</td>
-                  <td>mauris</td>
-                </tr>
-                <tr>
-                  <td>1,008</td>
-                  <td>Fusce</td>
-                  <td>nec</td>
-                  <td>tellus</td>
-                  <td>sed</td>
-                </tr>
-                <tr>
-                  <td>1,009</td>
-                  <td>augue</td>
-                  <td>semper</td>
-                  <td>porta</td>
-                  <td>Mauris</td>
-                </tr>
-                <tr>
-                  <td>1,010</td>
-                  <td>massa</td>
-                  <td>Vestibulum</td>
-                  <td>lacinia</td>
-                  <td>arcu</td>
-                </tr>
-                <tr>
-                  <td>1,011</td>
-                  <td>eget</td>
-                  <td>nulla</td>
-                  <td>Class</td>
-                  <td>aptent</td>
-                </tr>
-                <tr>
-                  <td>1,012</td>
-                  <td>taciti</td>
-                  <td>sociosqu</td>
-                  <td>ad</td>
-                  <td>litora</td>
-                </tr>
-                <tr>
-                  <td>1,013</td>
-                  <td>torquent</td>
-                  <td>per</td>
-                  <td>conubia</td>
-                  <td>nostra</td>
-                </tr>
-                <tr>
-                  <td>1,014</td>
-                  <td>per</td>
-                  <td>inceptos</td>
-                  <td>himenaeos</td>
-                  <td>Curabitur</td>
-                </tr>
-                <tr>
-                  <td>1,015</td>
-                  <td>sodales</td>
-                  <td>ligula</td>
-                  <td>in</td>
-                  <td>libero</td>
-                </tr>
-              </tbody>
+                <?php foreach ($userList as $key => $list) : ?>
+                    <?php foreach ($list as $zh => $pd) : ?>
+                        <tr>
+                            <td ><?php echo $zh ?></td>
+                            <td >
+                                <a href="/index.php?ac=10&name=<?php echo $zh ?>"><button class="btn btn-danger" type="button">删除</button></a>
+                                <a href="/index.php?ac=11&name=<?php echo $zh ?>"><button class="btn btn-danger" type="button">重置密码</button></a>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php endforeach; ?>
             </table>
-          </div>
         </div>
-      </div>
     </div>
-    <?php include 'footer.php';?>
+
+</div> <!-- /container -->
+<?php include 'footer.php'; ?>
