@@ -10,6 +10,8 @@ svn account&amp;path&amp;Privilege  manage svn 账号与权限管理
 
 有人愿意参与维护和新加功能，可以联系我。
 
+使用说明地址：http://blog.waiteat.com/?p=728
+
 
 
 
