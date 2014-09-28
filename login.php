@@ -4,7 +4,7 @@ include 'init.php';
 IF (isLogin()) {
     header("Location: /index.php");
 }
-if ('out' == $_GET['login']) {
+if ('out' == @$_GET['login']) {
     session_destroy();
 }
 

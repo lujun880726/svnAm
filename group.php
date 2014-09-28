@@ -4,7 +4,7 @@ include 'init.php';
 checkLogin();
 
 //删除组员添加
-if (4 == $_GET['ac']) {
+if (4 == @$_GET['ac']) {
     $Authz['aliases'] = array();
     $gname            = trim($_GET['gname']);
     $mname            = trim($_GET['mname']);
@@ -22,7 +22,7 @@ if (4 == $_GET['ac']) {
 }
 
 //删除组
-if (5 == $_GET['ac']) {
+if (5 == @$_GET['ac']) {
     $Authz['aliases'] = array();
     $gname            = trim($_GET['gname']);
     unset($Authz['groups'][$gname]);
@@ -62,8 +62,8 @@ if (isPost()) {
 
 //整理数据
 $Authz = $Authz['groups'];
-unset($qx['aliases']);
-unset($qx['groups']);
+//unset($qx['aliases']);
+//unset($qx['groups']);
 
 $top = 2;
 ?>

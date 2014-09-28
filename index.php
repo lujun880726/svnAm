@@ -14,7 +14,7 @@ if (isset($_GET['pro']) && $_GET['pro']) {
 $userList = getPasswd();
 
 //删除用户
-if (10 == $_GET['ac']) {
+if (10 == @$_GET['ac']) {
     $name = trim($_GET['name']);
     unset($userList['users'][$name]);
     putIniFile($userList, getPasswdPath());
@@ -22,7 +22,7 @@ if (10 == $_GET['ac']) {
 }
 
 //重置密码
-if (11 == $_GET['ac']) {
+if (11 == @$_GET['ac']) {
     $name                     = trim($_GET['name']);
     $userList['users'][$name] = 123456;
     putIniFile($userList, getPasswdPath());
@@ -73,17 +73,19 @@ $top      = 1;
                     <td> 账号 </td>
                     <td> 操作 </td>
                 </tr>
-                <?php foreach ($userList as $key => $list) : ?>
-                    <?php foreach ($list as $zh => $pd) : ?>
-                        <tr>
-                            <td ><?php echo $zh ?></td>
-                            <td >
-                                <a href="/index.php?ac=10&name=<?php echo $zh ?>"><button class="btn btn-danger" type="button">删除</button></a>
-                                <a href="/index.php?ac=11&name=<?php echo $zh ?>"><button class="btn btn-danger" type="button">重置密码</button></a>
-                            </td>
-                        </tr>
+                <?php if ($userList) : ?>
+                    <?php foreach ($userList as $key => $list) : ?>
+                        <?php foreach ($list as $zh => $pd) : ?>
+                            <tr>
+                                <td ><?php echo $zh ?></td>
+                                <td >
+                                    <a href="/index.php?ac=10&name=<?php echo $zh ?>"><button class="btn btn-danger" type="button">删除</button></a>
+                                    <a href="/index.php?ac=11&name=<?php echo $zh ?>"><button class="btn btn-danger" type="button">重置密码</button></a>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
                     <?php endforeach; ?>
-                <?php endforeach; ?>
+                <?php endif; ?>
             </table>
         </div>
     </div>

@@ -13,16 +13,17 @@ include "function.php";
 session_start();
 
 ini_set('display_errors', 'On');
-error_reporting(0);
+error_reporting(E_ALL);
 
 
 
 //管理员账号
 define('ADMIN_ACCOUT', 'admin');
 define('ADMIN_PWD', 'admin');
-
 // svn 根目录 ----需要修改
 define('SVN_PATH', '/home/svn/');
+//define('SVN_PATH', './tmp/');
+
 
 //项目列表
 $projectList = getDirFile(SVN_PATH);
@@ -37,4 +38,6 @@ if (!isset($_SESSION['pro']) || !$_SESSION['pro']) {
 $userList = getPasswd();
 //权限列表
 $Authz    = getAuthz();
+
+$err = '';
 

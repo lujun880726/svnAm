@@ -44,7 +44,7 @@ function isLogin()
 function getDirFile($Dir)
 {
     $arr  = array();
-    $dir  = @ dir($Dir);
+    $dir  = dir($Dir);
     while (($file = $dir->read()) !== false) {
         if (is_dir($Dir . "/" . $file) && '.' != $file && '..' != $file) {
             $arr[] = $file;

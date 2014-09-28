@@ -4,7 +4,7 @@ include 'init.php';
 checkLogin();
 
 //删除路径权限
-if (8 == $_GET['ac']) {
+if (8 == @$_GET['ac']) {
     $Authz['aliases'] = array();
     $ph               = ($_GET['ph']);
     $k                = trim($_GET['k']);
@@ -13,7 +13,7 @@ if (8 == $_GET['ac']) {
 }
 
 //删除路径
-if (9 == $_GET['ac']) {
+if (9 == @$_GET['ac']) {
     $Authz['aliases'] = array();
     $ph               = ($_GET['ph']);
     unset($Authz[$ph]);
@@ -174,6 +174,10 @@ $top = 3;
     {
         $('#qx_' + str).append(getGroupListSe2());
     }
-
+    function gdelM(obj)
+    {
+        rowObj = $(obj).parent();
+        rowObj.remove();
+    }
 </script>
 <?php include 'footer.php'; ?>
