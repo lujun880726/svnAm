@@ -17,7 +17,7 @@ if (4 == @$_GET['ac']) {
             }
         }
         $Authz['groups'][$gname] = implode(',', $tmpgrow);
-        putIniFile($Authz, getAuthzPath());
+        putIniFile($Authz, getGrpupsPath());
     }
 }
 
@@ -26,7 +26,7 @@ if (5 == @$_GET['ac']) {
     $Authz['aliases'] = array();
     $gname            = trim($_GET['gname']);
     unset($Authz['groups'][$gname]);
-    putIniFile($Authz, getAuthzPath());
+    putIniFile($Authz, getGrpupsPath());
 }
 
 if (isPost()) {
@@ -42,7 +42,7 @@ if (isPost()) {
         }
         if (!$err) {
             $Authz['groups'][$gname] = '';
-            putIniFile($Authz, getAuthzPath());
+            putIniFile($Authz, getGrpupsPath());
         }
     }
     //组员添加
@@ -56,7 +56,7 @@ if (isPost()) {
         }
         $tmpList                 = array_unique($tmpList);
         $Authz['groups'][$gname] = implode(',', $tmpList);
-        putIniFile($Authz, getAuthzPath());
+        putIniFile($Authz, getGrpupsPath());
     }
 }
 

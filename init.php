@@ -21,7 +21,13 @@ error_reporting(E_ALL);
 define('ADMIN_ACCOUT', 'admin');
 define('ADMIN_PWD', 'admin');
 // svn 根目录 ----需要修改
-define('SVN_PATH', '/home/svn/');
+if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+	define('SVN_PATH', dirname(__FILE__));
+} else {
+    define('SVN_PATH', '/home/svn/');
+}
+
+
 //define('SVN_PATH', './tmp/');
 
 

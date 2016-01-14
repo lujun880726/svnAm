@@ -77,15 +77,6 @@ function putIniFile($data, $filename)
 }
 
 /**
- * 获取PASSWD路径
- * @return type
- */
-function getPasswdPath()
-{
-    return SVN_PATH . $_SESSION['pro'] . '/conf/' . 'passwd';
-}
-
-/**
  * 用户列表
  * @global string $svnPath
  * @global string $pr
@@ -97,12 +88,29 @@ function getPasswd()
 }
 
 /**
+ * 获取PASSWD路径
+ * @return type
+ */
+function getPasswdPath()
+{
+    return SVN_PATH . $_SESSION['pro'] . '/conf/' . 'passwd';
+}
+/**
  *  获取Authz路径
  * @return type
  */
 function getAuthzPath()
 {
     return SVN_PATH . $_SESSION['pro'] . '/conf/' . 'authz';
+}
+
+/**
+ *  获取Grpups路径
+ * @return type
+ */
+function getGrpupsPath()
+{
+    return SVN_PATH . $_SESSION['pro'] . '/conf/' . 'groups';
 }
 
 /**
