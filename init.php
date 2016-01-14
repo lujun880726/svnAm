@@ -27,7 +27,7 @@ if (CONF_PATH || strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
 	define('SVN_PATH', dirname(__FILE__) . '/svndata/');
 	
 } else {
-    define('SVN_PATH', '/home/svn/');
+    define('SVN_PATH', '/data/svn/');
 }
 
 
