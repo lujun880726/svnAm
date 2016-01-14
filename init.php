@@ -20,9 +20,12 @@ define('ADMIN_ACCOUT', 'admin');
 define('ADMIN_PWD', 'admin');
 define('CONF_PATH', true);//true  为当前目录 
 
+define('COM_PATH', dirname(__FILE__) . '/conf/')
+
 // svn 根目录 ----需要修改
 if (CONF_PATH || strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
 	define('SVN_PATH', dirname(__FILE__) . '/svndata/');
+	
 } else {
     define('SVN_PATH', '/home/svn/');
 }
