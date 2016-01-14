@@ -93,7 +93,7 @@ function getPasswd()
  */
 function getPasswdPath()
 {
-    return SVN_PATH . $_SESSION['pro'] . '/conf/' . 'passwd';
+    return COM_PATH  . 'passwd';
 }
 
 /**
@@ -129,7 +129,7 @@ function getGrpups()
  */
 function getGrpupsPath()
 {
-    return SVN_PATH . $_SESSION['pro'] . '/conf/' . 'groups';
+    return COM_PATH . 'groups';
 }
 
 
