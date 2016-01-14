@@ -5,10 +5,9 @@ checkLogin();
 
 //删除组员添加
 if (4 == @$_GET['ac']) {
-    $Authz['aliases'] = array();
     $gname            = trim($_GET['gname']);
     $mname            = trim($_GET['mname']);
-    $tmpgrow          = explode(',', $Authz['groups'][$gname]);
+    $tmpgrow          = explode(',', $groups['groups'][$gname]);
 
     if ($tmpgrow) {
         foreach ($tmpgrow as $key => $val) {
@@ -16,55 +15,50 @@ if (4 == @$_GET['ac']) {
                 unset($tmpgrow[$key]);
             }
         }
-        $Authz['groups'][$gname] = implode(',', $tmpgrow);
-        putIniFile($Authz, getGrpupsPath());
+        $groups['groups'][$gname] = implode(',', $tmpgrow);
+        putIniFile($groups, getGrpupsPath());
     }
 }
 
 //删除组
 if (5 == @$_GET['ac']) {
-    $Authz['aliases'] = array();
     $gname            = trim($_GET['gname']);
-    unset($Authz['groups'][$gname]);
-    putIniFile($Authz, getGrpupsPath());
+    unset($groups['groups'][$gname]);
+    putIniFile($groups, getGrpupsPath());
 }
 
 if (isPost()) {
     //创建用户组
     if (2 == $_POST['ac']) {
-        $Authz['aliases'] = array();
         $gname            = trim($_POST['gname']);
         if (!$gname) {
             $err = '组名不能为空';
         }
-        if (isset($Authz['groups'][$gname])) {
+        if (isset($groups['groups'][$gname])) {
             $err = '组名已存在';
         }
+		
         if (!$err) {
-            $Authz['groups'][$gname] = '';
-            putIniFile($Authz, getGrpupsPath());
+            $groups['groups'][$gname] = '';
+			putIniFile($groups, getGrpupsPath());
         }
     }
     //组员添加
     if (3 == $_POST['ac']) {
-        $Authz['aliases'] = array();
         $gname            = trim($_POST['gname']);
-        $tmpgrow          = explode(',', $Authz['groups'][$gname]);
+        $tmpgrow          = explode(',', $groups['groups'][$gname]);
         $tmpList          = array_unique($_POST['member']);
         if ($tmpgrow[0]) {
             $tmpList = array_merge($tmpgrow, $tmpList);
         }
         $tmpList                 = array_unique($tmpList);
-        $Authz['groups'][$gname] = implode(',', $tmpList);
-        putIniFile($Authz, getGrpupsPath());
+        $groups['groups'][$gname] = implode(',', $tmpList);
+        putIniFile($groups, getGrpupsPath());
     }
 }
 
 //整理数据
-$Authz = $Authz['groups'];
-//unset($qx['aliases']);
-//unset($qx['groups']);
-
+$groups = getGrpups();
 $top = 2;
 ?>
 <?php include 'header.php'; ?>
@@ -88,8 +82,8 @@ $top = 2;
                     <td>组名</td>
                     <td>组员</td>
                 </tr>
-                <?php if ($Authz) : ?>
-                    <?php foreach ($Authz as $gn => $uL) : ?>
+                <?php if ($groups) : ?>
+                    <?php foreach ($groups['groups'] as $gn => $uL) : ?>
                         <tr>
                             <td><?php echo $gn ?>&nbsp;&nbsp;<a href="/group.php?ac=5&gname=<?php echo $gn ?>"><button class="btn btn-danger small"  type="button">删除</button></td>
                             <td>

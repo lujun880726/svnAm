@@ -53,7 +53,7 @@ if (isPost()) {
 
 $qx    = $Authz = getAuthz();
 //整理数据
-$Authz = $Authz['groups'];
+$Authz = @$groups['groups'];
 unset($qx['aliases']);
 unset($qx['groups']);
 

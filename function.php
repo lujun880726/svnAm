@@ -95,13 +95,32 @@ function getPasswdPath()
 {
     return SVN_PATH . $_SESSION['pro'] . '/conf/' . 'passwd';
 }
+
 /**
+ * 获取权限住处
+ * @return type
+ */
+function getAuthz()
+{
+    return parse_ini_file(getAuthzPath(), true);
+}
+
+/**  
  *  获取Authz路径
  * @return type
  */
 function getAuthzPath()
 {
     return SVN_PATH . $_SESSION['pro'] . '/conf/' . 'authz';
+}
+
+/**
+ * 获取权限住处
+ * @return type
+ */
+function getGrpups()
+{
+    return parse_ini_file(getGrpupsPath(), true);
 }
 
 /**
@@ -113,14 +132,6 @@ function getGrpupsPath()
     return SVN_PATH . $_SESSION['pro'] . '/conf/' . 'groups';
 }
 
-/**
- * 获取权限住处
- * @return type
- */
-function getAuthz()
-{
-    return parse_ini_file(getAuthzPath(), true);
-}
 
 /**
  * 字符变ASII
