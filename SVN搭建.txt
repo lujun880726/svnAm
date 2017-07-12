@@ -1,0 +1,31 @@
+#使用LNMP 安装环境，安装完后去掉MYSQL（不启动就可以）
+
+#安装 SVN
+yum -y install subversion  
+
+#安装git 
+yum -y install git
+
+#下载代码  到 
+cd /home/wwwroot
+git clone https://github.com/lujun880726/svnAm.git
+#配置代码环境可以访问
+
+#目录给予 权限
+chmod -R 755 svnAm/
+
+mdkir mkdir /data/svn
+
+#修改根目录 21 为FALSE
+
+修改fastcgi open_basedir 加入/data/svn/
+
+
+
+注意：centos 默认安装的可能是svn1.6  没有group-db  svn1.9有group-db配置
+连接不通请考虑防火墙
+
+
+
+
+
