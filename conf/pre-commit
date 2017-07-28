@@ -1,0 +1,9 @@
+#!/bin/sh
+REPOS="$1"
+TXN="$2"
+SVNLOOK=/usr/bin/svnlook
+LOGMSG=$($SVNLOOK log -t "$TXN" "$REPOS" | grep "[a-zA-Z0-9]" | wc -c)
+if [ "$LOGMSG" -lt 10 ]; then
+   echo -e "\n 提交文件时必须添加注释，提交中止."1>&2
+   exit 1
+fi
