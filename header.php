@@ -39,9 +39,9 @@
                 <div class="navbar-collapse collapse" id="navbar">
                     <?php if (1 == isLogin()): ?>
                         <ul class="nav navbar-nav">
-                            <li class="dropdown" style="height:505px;overflow:auto;">
+                            <li class="dropdown" >
                                 <a data-toggle="dropdown" class="dropdown-toggle" href="#"><?php echo $_SESSION['pro'] ?> <span class="caret"></span></a>
-                                <ul role="menu" class="dropdown-menu">
+                                <ul role="menu" class="dropdown-menu" style="height:505px;overflow:auto;">
                                     <?php if ($projectList) : ?>
                                         <?php foreach ($projectList as $key => $val): ?>
                                             <li><a href="/index.php?pro=<?php echo $val ?>"><?php echo $val ?></a></li>
