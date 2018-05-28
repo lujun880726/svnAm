@@ -39,7 +39,7 @@
                 <div class="navbar-collapse collapse" id="navbar">
                     <?php if (1 == isLogin()): ?>
                         <ul class="nav navbar-nav">
-                            <li class="dropdown">
+                            <li class="dropdown" style="height:505px;overflow:auto;">
                                 <a data-toggle="dropdown" class="dropdown-toggle" href="#"><?php echo $_SESSION['pro'] ?> <span class="caret"></span></a>
                                 <ul role="menu" class="dropdown-menu">
                                     <?php if ($projectList) : ?>
