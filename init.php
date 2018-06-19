@@ -36,6 +36,7 @@ if (CONF_PATH || strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
 
 //项目列表
 $projectList = getDirFile(SVN_PATH);
+asort($projectList);
 
 
 //设置当前项目
