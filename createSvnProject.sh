@@ -30,3 +30,20 @@ cp ${svnserveFile}svnserve.conf ${svnPath}/${projectname}/conf/svnserve.conf
 
 chmod -R 777 ${svnPath}/${projectname}
 
+echo '[aliases]' >> ${svnPath}/${projectname}/conf/authz
+echo '[/]' >> ${svnPath}/${projectname}/conf/authz
+echo 'svncreate=rw' >> ${svnPath}/${projectname}/conf/authz
+
+
+cd /tmp/
+svn checkout svn://192.168.0.21/${projectname}
+cd ${projectname}/
+ls
+mkdir branch trunk
+svn add branch/ trunk/
+svn ci -m "init"
+svn cp -m "create branch test" svn://192.168.0.21/${projectname}/trunk svn://192.168.0.21/${projectname}/branch/test
+cd branch/
+svn co svn://192.168.0.21/${projectname}/branch/test
+svn cp -m "create branch produce" svn://192.168.0.21/${projectname}/branch/test svn://192.168.0.21/${projectname}/branch/produce
+svn co svn://192.168.0.21/${projectname}/branch/produce
