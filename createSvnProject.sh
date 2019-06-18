@@ -36,7 +36,7 @@ echo '@maintenance=rw' >> ${svnPath}/${projectname}/conf/authz
 
 cd /tmp/
 
-svn   checkout --username svncreate --password 123456 svn://192.168.0.21/${projectname} <<EOF
+svn   checkout --username ${svnuser} --password ${svnpwd} svn://192.168.0.21/${projectname} <<EOF
 
 yes
 
